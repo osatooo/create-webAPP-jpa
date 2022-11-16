@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>JPA版 webAPI</title>
+        <style>
+            table {
+                border-collapse: collapse;
+            }
+            td {
+                border: 1px solid black;
+                padding: 5px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1>JPA版 webAPI</h1>
+            <table>
+                <tr> <!-- th:each="変数名:${コレクション名}"で反復処理を指定、付与したタグが要素の数だけ繰り返される。-->
+                    <td th:each="test:${userList}" th:text="${test.id}"></td>
+                </tr>
+                <tr>
+                    <td th:each="test:${userList}" th:text="${test.name}"></td>
+                </tr>
+            </table>
+            <h2>userList</h2>
+            <p th:text="${userList}"></p>
+            <h2>userMap</h2>
+            <p th:text="${userMap}"></p>
+        </div>
+        
+        <div>
+            <h1>thymeleafの基本と活用</h1>
+            <h2>基本の記法 (th:textとインライン)</h2>
+            <p>4つ目の要素は、id: <span th:text="${userList[3].id}"></span>、name: [[${userList[3].name}]]。</p>
+            <!-- Listは0から数えるため、4つ目の要素を取得するために3番目を指定する。
+                また、Mapには[数字]で値を取る仕組みがないため、userMap[3].idは使えない。 -->
+            <h2>条件分岐</h2>
+            <p th:if="${userList.size == 33}">list要素数は33。</p>
+            <p th:if="${userMap.size == 34}">map要素数は34。</p>
+            <p th:unless="${userList.size == 33}">list要素数は33でない。
+                正しくは<span th:text="${userList.size}"></span>。
+            </p>
+            <p th:unless="${userMap.size == 32}">map要素数は32でない。
+                正しくは<span th:text="${userMap.size}"></span>。
+            </p>
+        </div>
+    </body>
+</html>
